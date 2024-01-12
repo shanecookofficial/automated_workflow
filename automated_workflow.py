@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 from seleniumbase import Driver
 from dotenv import load_dotenv
 import os
@@ -47,9 +48,15 @@ driver.find_element(By.XPATH, sign_in_button_locator).click()
 
 # Navigate to Orders tab
 driver.get("https://store.tcgplayer.com/admin/orders/orderlist")
+WebDriverWait(driver,10).until(EC.text_to_be_present_in_element((By.XPATH,"//tbody/tr[1]/td[2]"), ''))
 
 # Select all 'Ready To Ship' orders
-WebDriverWait(driver,10).until(EC.text_to_be_present_in_element((By.XPATH,"//tbody/tr[1]/td[2]"), ''))
+first_ready_to_ship_locator = "//tbody/tr[1][@class='ready-to-ship']"
+try:
+    driver.find_element(By.XPATH,first_ready_to_ship_locator)
+except NoSuchElementException:
+    driver.quit()
+    
 ready_to_ship = True
 i = 1
 while ready_to_ship:
