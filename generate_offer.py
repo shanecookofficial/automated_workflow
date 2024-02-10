@@ -18,3 +18,24 @@ for offer in range(len(offers)):
 
 print(round(sales_price, 2))
 print(offers)
+
+accepted_offer = 'none'
+pitch = False
+while pitch == False:
+    potential_offer = input('Enter 1,2,3 or ni: ')
+    if potential_offer == '1':
+        accepted_offer = offers[0]
+        pitch = True
+    elif potential_offer == '2':
+        accepted_offer = offers[1]
+        pitch = True
+    elif potential_offer == '3':
+        accepted_offer = offers[2]
+        pitch = True
+    elif potential_offer == 'ni':
+        pitch = True
+    else:
+        print('\nInvalid Input\n')
+
+if pitch == 'none':
+    exit()
