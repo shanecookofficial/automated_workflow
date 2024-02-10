@@ -1,2 +1,4 @@
 .env
 /downloaded_files
+credentials.json
+token.json
